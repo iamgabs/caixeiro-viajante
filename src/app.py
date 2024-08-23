@@ -34,7 +34,7 @@ def algoritmo_genetico(cidades, distancias, n_geracoes, n_populacao, n_individuo
 
 
 if __name__ == '__main__':
-    nome_arquivo = "brazil58.tsp"
+    nome_arquivo = "./brazil58.tsp"
     cidades, distancias = ler_arquivo_tsp(nome_arquivo)
     melhor_solucao = algoritmo_genetico(cidades, distancias, n_geracoes=100, n_populacao=50, n_individuos_torneio=5, taxa_mutacao=0.1)
     print("______________________________________________")
