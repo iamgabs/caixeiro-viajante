@@ -1,6 +1,7 @@
 import numpy as np
 
-def ler_arquivo_tsp(nome_arquivo):
+def ler_arquivo_tsp(nome_arquivo, logger: object):
+    logger.info('[Lendo TSP] ...............')
     with open(nome_arquivo, 'r') as file:
         linhas = file.readlines()
 
@@ -16,5 +17,7 @@ def ler_arquivo_tsp(nome_arquivo):
             distancias[i][j] = valores[k]
             distancias[j][i] = valores[k]
             k += 1
+
+    logger.info('[Leitura do TSP finalizada]')
 
     return cidades, distancias

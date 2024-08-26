@@ -1,23 +1,33 @@
-from individuo import Individuo
 from random import randint
 
-def cruzamento_uniforme(individuo1, individuo2):
-    n_genes = len(individuo1.cromossomo)
-    filho1 = Individuo(individuo1.cidades, individuo1.distancias)
-    filho2 = Individuo(individuo2.cidades, individuo2.distancias)
+def cruzamento_ox(pai1, pai2):
+    n = len(pai1.cromossomo)
+    filho1 = [-1] * n
+    filho2 = [-1] * n
+    
+    start, end = sorted([randint(0, n - 1) for _ in range(2)])
+    
+    filho1[start:end+1] = pai1.cromossomo[start:end+1]
+    filho2[start:end+1] = pai2.cromossomo[start:end+1]
 
-    filho1_cr = []
-    filho2_cr = []
+    p2_values = [gene for gene in pai2.cromossomo if gene not in filho1]
+    p1_values = [gene for gene in pai1.cromossomo if gene not in filho2]
 
-    for i in range(n_genes):
-        if randint(0, 1) == 0:
-            filho1_cr.append(individuo1.cromossomo[i])
-            filho2_cr.append(individuo2.cromossomo[i])
+    idx_filho1 = (end + 1) % n
+    idx_filho2 = (end + 1) % n
+
+    for value in p2_values:
+        if filho1[idx_filho1] == -1:
+            filho1[idx_filho1] = value
         else:
-            filho1_cr.append(individuo2.cromossomo[i])
-            filho2_cr.append(individuo1.cromossomo[i])
+            idx_filho1 = (idx_filho1 + 1) % n
+            filho1[idx_filho1] = value
 
-    filho1.ajustar_cromossomo(filho1_cr)
-    filho2.ajustar_cromossomo(filho2_cr)
+    for value in p1_values:
+        if filho2[idx_filho2] == -1:
+            filho2[idx_filho2] = value
+        else:
+            idx_filho2 = (idx_filho2 + 1) % n
+            filho2[idx_filho2] = value
 
     return filho1, filho2

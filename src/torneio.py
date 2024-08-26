@@ -6,4 +6,5 @@ def selecao_torneio(populacao, n_individuos):
         indice = randint(0, len(populacao) - 1)
         if populacao[indice].fitness < populacao[indice_melhor_torneio].fitness:
             indice_melhor_torneio = indice
+
     return populacao[indice_melhor_torneio]
